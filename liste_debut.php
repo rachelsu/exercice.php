@@ -14,8 +14,8 @@ DOCTYPE html>
 // Pour se connecter à la base de données
 const DB_SERVER = 'localhost';
 const DB_USER   = 'cpnv';
-const DB_PWD    = 'cpnv';
-const DB_NAME   = 'liste_email';
+const DB_PWD    = 'cpnv1234';
+const DB_NAME   = 'ch04';
 // Variables
 //
 
@@ -55,12 +55,21 @@ if ($link->numrows($result) < 1){
 	echo "<h3>Il n'y a pas d'email</h3>";
 	exit();
 }
-    
+?>
 //Création du tableau qui affiche les enregistrements
-
+<p>Voici la liste des emails<p>
+<?php    
+              $sql = 'SELECT email_id FROM liste_email';
+              if ($result = $dbh->query($sql)) {
+              $nbr = $result->num_rows;
+              echo "Il y a $nbr email(s)";
+?>
+<p><a href="ajouter_email.php">Rajouter un email</a><p>
     <table> 
       <tr>
-          <th> Voici la liste des emails </th>
+          <th> ID </th>
+          <th> Date </th>
+          <th> Options </th>
       </tr>
       <tr>
           <td> 
@@ -82,23 +91,15 @@ if ($link->numrows($result) < 1){
           <td> Options </td>
       </tr>
       <tr>
-              while ($row = $link->fetch_assoc()) { 
-          <td> 
-              echo $row['email_id'] 
-          </td> 
-          <td> 
-              echo $row['email'] 
-          </td> 
-          <td> 
-              echo $row['date_inscription']
-          </td> 
-          <td> 
-              <a href="mettre_a_jour.php">Mettre à jour</a> 
-          </td> 
-          <td> 
-              <a href="effacer.php">Effacer</a> 
-          </td> 
-              }          
+           <?= while ($row = $link->fetch_assoc()) { ?>
+          <td> <?= echo $row['email_id'] ?> </td> 
+          <td> <?=echo $row['email'] ?> </td> 
+          <td> <?=echo $row['date_inscription'] ?> </td> 
+          <td> <a href="mettre_a_jour.php">Mettre à jour</a> </td> 
+          <td> <a href="effacer.php">Effacer</a> </td> 
+<?php 
+              }
+?>
       </tr>
     </table>
 ?>
