@@ -23,7 +23,10 @@ const DB_NAME   = 'world';
 <body>
 <?php
 
+//
 //Connexion à la base de données
+//
+
     // Connexion à la base de données
     $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
 
@@ -33,7 +36,11 @@ const DB_NAME   = 'world';
                                      $mysqli->connect_error);
     }
 
+
+//
 //Message affichant le nombre de villes en Suisse
+//
+
     // Requête pour l'affichage des villes en Suisse
     if ($result = $mysqli->query("SELECT ID, Name, CountryCode, District FROM City WHERE CountryCode = 'CHE' ORDER BY Name")){
 
@@ -50,7 +57,10 @@ const DB_NAME   = 'world';
         $result->close();
     }
 
+//
 //Tableau avec les villes de Suisse
+//
+
     //Création et affichage du tableau contenant les villes et leurs informations
     ?>
     <table>
@@ -62,7 +72,7 @@ const DB_NAME   = 'world';
         <th>Edit</th>
       </tr>
     <?php
-    //Requête pour récupérer les infos 
+    //Requête pour récupérer les infos
     $query = "SELECT ID, Name, CountryCode, District FROM City WHERE CountryCode = 'CHE' ORDER BY Name";
 
     if ($result = $mysqli->query($query)) {
@@ -73,7 +83,7 @@ const DB_NAME   = 'world';
             $message .= 'Requête complète : ' . $query;
             die($message);
         }
-       
+
         //Création de la boucle permettant d'afficher tous les enregistrements
         while ($city = $result->fetch_assoc()) { ?>
             <tr>
@@ -81,11 +91,11 @@ const DB_NAME   = 'world';
               <td> <?= $city['Name']; ?> </td>
               <td> <?= $city['CountryCode']; ?> </td>
               <td> <?= $city['District']; ?> </td>
-              <td> <a href="edit.php">Edit</a> </td>
+              <td> <a href="edit.php?ID=<?=$city['ID']?>" >Edit</a> </td>
         <?php
         }
         $result->free();
-    }    
+    }
     //Fermeture de la connexion à la base de données
     $mysqli->close();
     ?>
