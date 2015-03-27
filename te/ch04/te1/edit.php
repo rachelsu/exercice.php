@@ -44,7 +44,7 @@ $id=$_GET['ID'];
 //
 
     //Requête pour récupérer les infos
-    $query = "SELECT ID, Name, CountryCode, District FROM City WHERE ID = $id ORDER BY Name";
+    $query = "SELECT ID, Name, CountryCode, Population, District FROM City WHERE ID = $id ORDER BY Name";
 
     if ($result = $mysqli->query($query)) {
 
@@ -55,17 +55,18 @@ $id=$_GET['ID'];
             die($message);
         }
 
-        //Création de la boucle permettant d'afficher tous les enregistrements
+        //Affichage de la ville et de ses caractéristiques
         $city = $result->fetch_assoc();
         ?>
 
-<form method="post" action="cities.php">
-   <p>ID:<input type="text" value=<?= $city['ID']; ?> /></p>
-   <p>Name:<input type="text" value=<?= $city['Name']; ?> /></p>
-   <p>CountryCode:<input type="text" value=<?= $city['CountryCode']; ?> /></p>
-   <p>District:<input type="text" value=<?= $city['District']; ?> /></p>
+<form method="post" action="update.php">
+   <p>ID:<input type="text" value="<?= $city['ID']; ?>" name="ID" /></p>
+   <p>Name:<input type="text" value="<?= $city['Name']; ?>" /></p>
+   <p>CountryCode:<input type="text" value="<?= $city['CountryCode']; ?>" /></p>
+   <p>District:<input type="text" value="<?= $city['District']; ?>" name="District" /></p>
+   <p>Population:<input type="text" value="<?= $city['Population']; ?>" name="Population" /></p>
    <input type="submit" value="Modifier" />
-   <input type="submit" value="Enregistrer" />
+   <input type="submit" value="Enregistrer"/>
 </form>
 
 <?php
