@@ -47,14 +47,27 @@ $population=$_POST['Population'];
 //Requête pour mettre à jour la base de données
 //
 
-    $query = "UPDATE City SET District= $district, Population = $population WHERE ID = $id ORDER BY Name";
+    $query = "UPDATE City SET District= '$district' , Population = $population WHERE ID = $id ORDER BY Name";
     
+    //
+    //Gestion des erreurs de la requête
+    //
+    
+    if (!$result = $mysqli->query($query)){
+        echo "L'erreur suivante est survenue:" . $mysqli->error;
+    }else{
+
+    //
     //Fermeture de la connexion à la base de données
-    $mysqli->close();
+    //
     
-    //
-    //Revenir à la première page après 1 seconde
-    //
+    $mysqli->close();
+
+    }
+
+//
+//Revenir à la première page après 1 seconde
+//
 
 header( "Refresh:1; url=cities.php");
 

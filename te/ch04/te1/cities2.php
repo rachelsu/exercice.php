@@ -13,6 +13,22 @@ const DB_SERVER = 'localhost';
 const DB_USER   = 'cpnv';
 const DB_PWD    = 'cpnv1234';
 const DB_NAME   = 'world';
+
+//Déclaration de la variable contenant les messages d'erreurs
+$error_msessage = '';
+
+//
+//Connexion à la base de données
+//
+
+    // Connexion à la base de données
+    $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
+    
+    //Gestion d'erreur de la connexion à la base de données
+    if ($dbh->connect_errno) {
+    $error_msg = sprintf('Problème de connexion : (%d) %s',
+                         $dbh->connect_errno, $dbh->connect_error);
+
 ?>
 
 <html lang="fr">
@@ -23,12 +39,7 @@ const DB_NAME   = 'world';
 <body>
 <?php
 
-//
-//Connexion à la base de données
-//
 
-    // Connexion à la base de données
-    $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
 
     //Gestion d'erreur de la connexion à la base de données
     if ($mysqli->connect_errno) {
