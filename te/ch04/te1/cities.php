@@ -28,7 +28,7 @@ const DB_NAME   = 'world';
 //
 
     // Connexion à la base de données
-    $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
+    $mysqli = @new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
 
     //Gestion d'erreur de la connexion à la base de données
     if ($mysqli->connect_errno) {
@@ -42,9 +42,11 @@ const DB_NAME   = 'world';
 //
 
     // Requête pour l'affichage des villes en Suisse
-    if ($result = $mysqli->query("SELECT ID, Name, CountryCode, District FROM City WHERE CountryCode = 'CHE' ORDER BY Name")){
+    if ($result = $mysqli->query("SELECT ID, Name, CountryCode, District FROM City
+                                  WHERE CountryCode = 'CHE' ORDER BY Name")){
 
-    //Gestion des erreurs lors de la transmission de la requête pour l'affichage des villes en Suisse
+    //Gestion des erreurs lors de la transmission de la requête 
+    //pour l'affichage des villes en Suisse
     if (!$result) {
         $message  = 'Votre requête est invalide: ' . mysqli_error() . "\n";
         $message .= 'Votre requête complète est: ' . $query;
@@ -73,7 +75,8 @@ const DB_NAME   = 'world';
       </tr>
     <?php
     //Requête pour récupérer les infos
-    $query = "SELECT ID, Name, CountryCode, District FROM City WHERE CountryCode = 'CHE' ORDER BY Name";
+    $query = "SELECT ID, Name, CountryCode, District FROM City 
+              WHERE CountryCode = 'CHE' ORDER BY Name";
 
     if (!$result = $mysqli->query($query)) {
         // erreur

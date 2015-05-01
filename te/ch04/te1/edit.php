@@ -31,7 +31,7 @@ $id=$_GET['ID'];
 //
 
     // Connexion à la base de données
-    $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
+    $mysqli = @new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
 
     //Gestion d'erreur de la connexion à la base de données
     if ($mysqli->connect_errno) {
@@ -44,7 +44,8 @@ $id=$_GET['ID'];
 //
 
     //Requête pour récupérer les infos
-    $query = "SELECT ID, Name, CountryCode, Population, District FROM City WHERE ID = $id ORDER BY Name";
+    $query = "SELECT ID, Name, CountryCode, Population, District FROM City 
+              WHERE ID = $id AND Countrycode = 'CHE' ORDER BY Name";
 
     if ($result = $mysqli->query($query)) {
 
@@ -60,11 +61,12 @@ $id=$_GET['ID'];
         ?>
 
 <form method="post" action="update.php">
-   <p>ID:<input type="text" value="<?= $city['ID']; ?>" name="ID" /></p>
+   <p>ID:<input type="text" value="<?= $city['ID']; ?>" name="ID" readonly /></p>
    <p>Name:<input type="text" value="<?= $city['Name']; ?>" /></p>
-   <p>CountryCode:<input type="text" value="<?= $city['CountryCode']; ?>" /></p>
+   <p>CountryCode:<input type="text" value="<?= $city['CountryCode'];?>" readonly /></p>
    <p>District:<input type="text" value="<?= $city['District']; ?>" name="District" /></p>
-   <p>Population:<input type="text" value="<?= $city['Population']; ?>" name="Population" /></p>
+   <p>Population:<input type="number" value="<?= $city['Population']; ?>" name="Population" 
+                        min="0" max="9999999999"/></p>
    <input type="submit" value="Modifier" />
    <input type="submit" value="Enregistrer"/>
 </form>

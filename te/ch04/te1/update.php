@@ -35,42 +35,45 @@ $population=$_POST['Population'];
 //
 
     // Connexion à la base de données
-    $mysqli = new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
+    $mysqli = @new mysqli(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
 
     //Gestion d'erreur de la connexion à la base de données
     if ($mysqli->connect_errno) {
-        die("Problème de connexion ({$mysqli->connect_errno}) " .
-                                     $mysqli->connect_error);
-    }
+        echo"Problème de connexion ({$mysqli->connect_errno}) " .
+                                     $mysqli->connect_error;
+    } else {
 
 //
 //Requête pour mettre à jour la base de données
 //
 
-    $query = "UPDATE City SET District= '$district' , Population = $population WHERE ID = $id ORDER BY Name";
+    $query = "UPDATE City SET District= '$district' , Population = $population
+              WHERE ID = $id AND Countrycode = 'CHE' ORDER BY Name";
     
     //
     //Gestion des erreurs de la requête
     //
     
-    if (!$result = $mysqli->query($query)){
+    if (!$result = $mysqli->query($query)) {
         echo "L'erreur suivante est survenue:" . $mysqli->error;
-    }else{
+    } else {
 
-    //
-    //Fermeture de la connexion à la base de données
-    //
+        //
+        //Fermeture de la connexion à la base de données
+        //
     
-    $mysqli->close();
+        $mysqli->close();
 
-    }
+    }}
+
 
 //
-//Revenir à la première page après 1 seconde
+//Revenir à la première page
 //
 
-header( "Refresh:1; url=cities.php");
+    ?>
+<p>Modification enregistrée</p>
+<a href="cities.php"> Voulez-vous retourner à la page principale? </a>
 
-    ?> 
 </body>
 </html>
