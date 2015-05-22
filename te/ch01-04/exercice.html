@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+ * Nom du fichier: exercice.html
+ * Auteur: Rachel Suter
+ * Date: 22 mai 2015
+ * Description: Te 3
+-->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapitre 4 TE3</title>
+</head>
+<body>
+    <form method="post" action="traitement.php">
+        <label>Sexe:</label>
+        <input type="radio" name="sexe" value="M" required>M
+        <input type="radio" name="sexe" value="F" required>F</br>
+        
+        <label>Nom:</label> 
+        <input type="text" maxlength="50" minlength="2" name="nom"></br>
+        
+        <label>Courriel:</label> 
+        <input type="email" name="email" required></br>
+        
+        <input type="submit">
+    </form>
+</body>
+</html>
